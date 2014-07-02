@@ -33,7 +33,6 @@ public class Fast
         {
             Point current = point[i];
             Arrays.sort(copy, current.SLOPE_ORDER);
-            
             int lo = 0, hi = N - 1;
             
             for (int j = 0; j < N; j++)
@@ -124,9 +123,10 @@ public class Fast
             // copy collinear points to output array, sort, print, and draw
             Point[] output = new Point[(hi - lo) + 2];
             output[0] = copy[0];
+            int k = lo;
             for (int j = 1; j < output.length; j++)
             {
-                output[j] = copy[lo++];
+                output[j] = copy[k++];
             }
             Arrays.sort(output);
             for (int j = 0; j < output.length - 1; j++)
