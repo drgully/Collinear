@@ -27,9 +27,7 @@ public class Fast
         Arrays.sort(point);
         
         // find collinear points range: lo to hi
-        ArrayList<Double> slopes = new ArrayList<Double>();
-        ArrayList<Double> yIntercepts = new ArrayList<Double>();
-        ArrayList<Double> xIntercepts = new ArrayList<Double>();
+        ArrayList<String> lines = new ArrayList<String>();
         for (int i = 0; i < N; i++)
         {
             Point[] copy = point;
@@ -67,39 +65,23 @@ public class Fast
                 int x = Integer.parseInt(coords[0]);
                 int y = Integer.parseInt(coords[1]);
                 
-                // find the slope of the line
+                // get the slope of the line
                 double m = copy[0].slopeTo(copy[hi]);
                 
-                // find y intercept (y = mx + b -> b = y - mx)
+                // calculate y-intercept (y = mx + b -> b = y - mx)
                 double b = y - m * x;
                 
-                // find x intercept (y / m - x)
+                // calculate x-intercept (y / m - x)
                 double xInt = y / m - x;
-                                                
-                // check if unique line
-                boolean display = false;
-                if (!slopes.contains(m))
-                {
-                    slopes.add(m);
-                    yIntercepts.add(b);
-                    xIntercepts.add(xInt);
-                    display = true;
-                }
-                else if (!yIntercepts.contains(b))
-                {
-                    yIntercepts.add(b);
-                    xIntercepts.add(xInt);
-                    display = true;
-                }
-                else if (!xIntercepts.contains(xInt))
-                {
-                    xIntercepts.add(xInt);
-                    display = true;
-                }
-                                
+                
+                // create line string
+                String line = "" + m + b + xInt;
+                
                 // if unique, display
-                if (display)
+                if (!lines.contains(line))
                 {
+                    lines.add(line);
+                    
                     // copy collinear points to output array, sort, print, and draw
                     Point[] output = new Point[(hi - lo) + 2];
                     output[0] = copy[0];
